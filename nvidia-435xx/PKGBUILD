@@ -1,0 +1,61 @@
+# Based on the file created for Arch Linux by:
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+# Maintainer: David Spink <yorper_protonmail.com>
+
+_linuxprefix=linux55
+_extramodules=extramodules-5.5-CLEANJARO
+pkgname=$_linuxprefix-nvidia-435xx
+_pkgname=nvidia
+pkgver=435.21
+pkgrel=3
+pkgdesc="NVIDIA drivers for linux (Short lived)."
+arch=('x86_64')
+url="http://www.nvidia.com/"
+depends=("$_linuxprefix" "nvidia-435xx-utils=${pkgver}")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+provides=("$_pkgname=$pkgver")
+conflicts=('nvidia-340xx' 'nvidia-390xx' 'nvidia-418xx' 'nvidia-430xx' 'nvidia-440xx')
+license=('custom')
+install=nvidia.install
+options=(!strip)
+durl="http://us.download.nvidia.com/XFree86/Linux-x86"
+source=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run" "kernel-5.4.patch" "kernel-5.5.patch" "prime.patch")
+sha256sums=('caee54f0ee5f6171a61b25670d309d1abe16d59fc7bec0577794b1a52c09244a'
+            'e825dfe84509f899776530b8e42dc98bfadda5503cefe72671f1cb4c50572318'
+            '38925eb6ece5a55e3eadb8a40ebf33c9544dd23e099b5a4eddea272655aca974'
+            'a353f5f79029f35ab4994f91e64337a96f4721555f128102b478b543bb08634f')
+
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+
+prepare() {
+    sh "${_pkg}.run" --extract-only
+    cd "${_pkg}"
+    # patches here
+    # Fix compile problem with 5.4
+    patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.4.patch
+    patch -p1 -i "$srcdir"/prime.patch
+    patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.5.patch
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    cd "${_pkg}"/kernel
+    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+}
+
+package() {
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia.ko" \
+        "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-modeset.ko" \
+         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-modeset.ko"
+    install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-drm.ko" \
+         "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-drm.ko"
+    if [[ "$CARCH" = "x86_64" ]]; then
+        install -D -m644 "${srcdir}/${_pkg}/kernel/nvidia-uvm.ko" \
+            "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
+    fi
+    gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+}

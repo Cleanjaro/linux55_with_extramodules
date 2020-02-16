@@ -1,0 +1,51 @@
+# Maintainer: David Spink <yorper_protonmail.com>
+
+# Contributor: Philip Müller <philm@manjaro.org>
+# Contributor: Helmut Stult <helmut[at]manjaro[dot]org>
+
+_linuxprefix=linux55
+_extramodules=extramodules-5.5-CLEANJARO
+pkgbase=$_linuxprefix-spl_zfs
+pkgname=("$_linuxprefix-zfs")
+pkgver=0.8.3
+pkgrel=3
+url="http://zfsonlinux.org/"
+arch=('x86_64')
+license=('CDDL' 'GPLv2')
+depends=("$_linuxprefix" "kmod")
+makedepends=("$_linuxprefix-headers")
+groups=("$_linuxprefix-extramodules")
+install=install
+source=("https://github.com/zfsonlinux/zfs/releases/download/zfs-${pkgver}/zfs-${pkgver}.tar.gz")
+sha256sums=('545a4897ce30c2d2dd9010a0fdb600a0d3d45805e2387093c473efc03aa9d7fd')
+
+prepare() {
+  cd "${srcdir}/zfs-${pkgver}"
+  # patches here
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+  cd "${srcdir}/zfs-${pkgver}"
+  ./autogen.sh
+  sed -i "s|\$(uname -r)|${_kernver}|g" configure
+  ./configure --prefix=/usr --sysconfdir=/etc --sbindir=/usr/bin --libdir=/usr/lib \
+              --datadir=/usr/share --includedir=/usr/include --with-udevdir=/lib/udev \
+              --libexecdir=/usr/lib/zfs-${pkgver} --with-config=kernel \
+ 	      --with-linux=/usr/lib/modules/${_kernver}/build \
+	      --with-linux-obj=/usr/lib/modules/${_kernver}/build
+  make
+}
+
+package_linux55-zfs(){
+  pkgdesc='Kernel modules for the Zettabyte File System.'
+  provides=("zfs=$pkgver")
+  depends+=("zfs-utils=${pkgver}")
+  replaces=('linux51-spl<=0.7.13')
+
+  cd "${srcdir}/zfs-${pkgver}"
+  install -dm755 "$pkgdir/usr/lib/modules/$_extramodules"
+  install -m644 module/*/*.ko "$pkgdir/usr/lib/modules/$_extramodules"
+  find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
+  sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/install"
+}

@@ -1,0 +1,55 @@
+# Based on the file created for Arch Linux by:
+# Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
+# Bob Fanger < bfanger(at)gmail >
+# Filip <fila pruda com>, Det < nimetonmaili(at)gmail >
+
+# Maintainer: David Spink <yorper_protonmail.com>
+
+_linuxprefix=linux55
+_extramodules=extramodules-5.5-CLEANJARO
+pkgname=$_linuxprefix-r8168
+_pkgname=r8168
+pkgver=8.048.00
+pkgrel=3
+pkgdesc="A kernel module for Realtek 8168 network cards"
+url="http://www.realtek.com.tw"
+license=("GPL")
+arch=('x86_64')
+depends=('glibc' "$_linuxprefix")
+makedepends=("$_linuxprefix-headers")
+provides=("$_pkgname=$pkgver")
+groups=("$_linuxprefix-extramodules")
+source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
+sha256sums=('0aacba20d985ba5e67e21bdad89a099e102f7bef3027adb647ffbb80b01ac8d0')
+
+install=$_pkgname.install
+
+prepare() {
+    cd "$_pkgname-$pkgver"
+    #patches here
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/$_extramodules/version || true)"
+
+    cd "$_pkgname-$pkgver"
+
+    # avoid using the Makefile directly -- it doesn't understand
+    # any kernel but the current.
+
+    make -C /usr/lib/modules/$_kernver/build \
+      M="$srcdir/$_pkgname-$pkgver/src" \
+      EXTRA_CFLAGS="-DCONFIG_R8168_NAPI -DCONFIG_R8168_VLAN" \
+      modules
+}
+
+package() {
+    cd "$srcdir/$_pkgname-$pkgver/src"
+    install -D -m644 $_pkgname.ko "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
+
+    # set the kernel we've built for inside the install script
+    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
+
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+}
+

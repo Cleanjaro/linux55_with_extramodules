@@ -1,0 +1,18 @@
+# Archives to ignore
+*.run
+*.gz
+*.xz
+*.bz2
+*.zip
+*.zst
+
+# Ignore logs
+*.log
+
+# Ignore signatures
+*.sign
+*.sig
+
+# Folders to ignore
+**/rtl8723bu/rtl8723bu
+**/tp_smapi/tp_smapi

@@ -1,0 +1,69 @@
+# Maintainer: David Spink <yorper_protonmail.com>
+
+# Contributor: Philip Müller <philm[at]manjaro[dot]org>
+# Contributor: Helmut Stult <helmut[at]manjaro[dot]org>
+
+_linuxprefix=linux55
+_extramodules=extramodules-5.5-CLEANJARO
+pkgbase=ndiswrapper
+pkgname=("$_linuxprefix-ndiswrapper")
+_pkgname=ndiswrapper
+groups=("$_linuxprefix-extramodules")
+pkgver=1.62
+pkgrel=3
+pkgdesc="Module (with utilities) for NDIS (Windows Network Drivers) drivers supplied by vendors."
+license=('GPL')
+arch=('x86_64')
+url="http://ndiswrapper.sourceforge.net"
+makedepends=("$_linuxprefix-headers" "$_linuxprefix")
+source=("http://downloads.sourceforge.net/sourceforge/$_pkgname/$_pkgname-$pkgver.tar.gz"
+        "kernel-5.3.patch" "kernel-5.4.patch" "kernel-5.5.patch")
+options=('!strip')
+sha256sums=('deb605ce7bc591e5c825148aa48f5c3f8d53272c43763692889d981c5319d7de'
+            'efae6bbbd15d9bf798d38337a6e3dafcbd3d5238067583d5160391c658d97a8f'
+            '5584ee70263c3d24dd7c98288de875cef2002294172dfcea3a831a1696bff645'
+            'acd6ae4a29a47640406e91039735554a73dd2e084c4dc8bcf04c8a7f2b2477e1')
+
+prepare() {
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  # patches here
+  patch --no-backup-if-mismatch -p2 -i "$srcdir"/kernel-5.3.patch
+  patch --no-backup-if-mismatch -p1 -i "$srcdir"/kernel-5.4.patch
+  patch --no-backup-if-mismatch -p1 -i "$srcdir"/kernel-5.5.patch
+}
+
+build() {
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  # modinfo path fix
+  sed -i "/modinfo/s/s/usr\//" driver/Makefile
+
+  # make sure we point to the right build directory
+  sed -i "/^KBUILD/ s,.*,KBUILD = $(readlink -f /usr/lib/modules/$_kernver/build)," driver/Makefile
+
+  make KVERS=$_kernver
+}
+
+package_linux55-ndiswrapper() {
+  depends=("$_linuxprefix" 'wireless_tools' 'perl')
+  provides=('ndiswrapper-extramodule')
+  _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+
+  provides=("$_pkgname=$pkgver")
+  install=ndiswrapper.install
+  cd "$srcdir/$_pkgname-$pkgver"
+
+  make INST_DIR="usr/lib/modules/$_extramodules" \
+    KVERS=$_kernver DESTDIR="$pkgdir/" sbindir=/usr/bin usrsbindir=/usr/bin install
+
+  # set the kernel we've built for inside the install script
+  sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" "${startdir}/${_pkgname}.install"
+
+  gzip "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname.ko"
+}
+
+# vim:set ts=2 sw=2 et:
+
