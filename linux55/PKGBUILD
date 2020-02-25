@@ -8,7 +8,7 @@ pkgbase=linux55
 pkgname=('linux55' 'linux55-headers')
 _kernelname=-CLEANJARO
 _basekernel=5.5
-_sub=5
+_sub=6
 pkgver=${_basekernel}.${_sub}
 pkgrel=1
 arch=('x86_64')
@@ -46,8 +46,8 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            '591340b56c24fd02db6b65542a14b7c3f50be8e1e224f2cc18c5da14ab5fc869'
-            'c26a7a2376fa2cb1919fcde7c71f38acf14742a6066b1a13ac8e8ef7668d055d'
+            '694bda875d41e9eafa4b71c4501c55815eb1e9cd85d43808bafcd19954cb5a38'
+            '8617028b2713624a2771099c326d965e714720ae03bbc8c1445a6502aac4fbd2'
             '7685d526bbdbfa795986591a70071c960ff572f56d3501774861728a9df8664c'
             'b8e016738f390ac7e0750da3c5147ecd20b89f7d58ba03649f3b8dbe983b5640'
             '00297708583550422a325161822fbdd046b1d198b4fcf28e308ddbe0171e9696'
