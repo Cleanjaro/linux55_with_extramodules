@@ -24,7 +24,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar."
         '0002-iwlwifi-pcie-restore-support-for-Killer-Qu-C0-NICs.patch'
         '0003-iwlwifi-mvm-Do-not-require-PHY_SKU NVM-section-for-3168-devices.patch'
         '0004-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
-        '0005-drm-i915-Serialise-i915_active_acquire-with __active_retire.patch'
+        '0005-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
         '0006-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
         '0007-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
         '0008-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
@@ -74,7 +74,7 @@ prepare() {
   patch -Np1 -i '../0003-iwlwifi-mvm-Do-not-require-PHY_SKU NVM-section-for-3168-devices.patch'
 
   patch -Np1 -i '../0004-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
-  patch -Np1 -i '../0005-drm-i915-Serialise-i915_active_acquire-with __active_retire.patch'
+  patch -Np1 -i '../0005-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
   patch -Np1 -i '../0006-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
   patch -Np1 -i '../0007-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
   patch -Np1 -i '../0008-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
