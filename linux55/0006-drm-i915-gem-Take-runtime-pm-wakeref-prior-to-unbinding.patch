@@ -1,4 +1,4 @@
-From e3d3fd13d0ac1e12848b4f2a57e9e4bf2b557bf0 Mon Sep 17 00:00:00 2001
+From 92294ec84e60045e4ab3613a2b6a597b35eb48e7 Mon Sep 17 00:00:00 2001
 From: Chris Wilson <chris@chris-wilson.co.uk>
 Date: Tue, 3 Dec 2019 10:13:46 +0000
 Subject: drm/i915/gem: Take runtime-pm wakeref prior to unbinding
