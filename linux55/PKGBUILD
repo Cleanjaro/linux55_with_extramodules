@@ -8,7 +8,7 @@ pkgbase=linux55
 pkgname=('linux55' 'linux55-headers')
 _kernelname=-CLEANJARO
 _basekernel=5.5
-_sub=7
+_sub=8
 pkgver=${_basekernel}.${_sub}
 pkgrel=1
 arch=('x86_64')
@@ -40,11 +40,10 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar."
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
   '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
-  '8218F88849AAC522E94CF470A5E9288C4FA415FA'  # Jan Alexander Steffens (heftig)
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            '5aabcb81dcea06dca5c9daf739a0309eaf285365150f27419e0c00c5874c8511'
+            'b3f900cc7ef8aec03a9c0ab1108d4abc6105d5874965df3ada275bf76f6a5a0d'
             '8617028b2713624a2771099c326d965e714720ae03bbc8c1445a6502aac4fbd2'
             '7685d526bbdbfa795986591a70071c960ff572f56d3501774861728a9df8664c'
             'b8e016738f390ac7e0750da3c5147ecd20b89f7d58ba03649f3b8dbe983b5640'
