@@ -8,7 +8,7 @@ _extramodules=extramodules-5.5-CLEANJARO
 pkgname=$_linuxprefix-nvidia-390xx
 _pkgname=nvidia
 pkgver=390.132
-pkgrel=7
+pkgrel=8
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 pkgdesc="NVIDIA drivers for linux (Legacy)."
