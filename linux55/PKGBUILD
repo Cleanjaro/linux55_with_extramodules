@@ -8,7 +8,7 @@ pkgbase=linux55
 pkgname=('linux55' 'linux55-headers')
 _kernelname=-CLEANJARO
 _basekernel=5.5
-_sub=9
+_sub=10
 pkgver=${_basekernel}.${_sub}
 pkgrel=1
 arch=('x86_64')
@@ -22,15 +22,14 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar."
         # ARCH Patches
         '0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch'
         '0002-iwlwifi-pcie-restore-support-for-Killer-Qu-C0-NICs.patch'
-        '0003-iwlwifi-mvm-Do-not-require-PHY_SKU NVM-section-for-3168-devices.patch'
-        '0004-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
-        '0005-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
-        '0006-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
-        '0007-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
-        '0008-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
-        '0009-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
-        '0010-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
-        '0011-drm-i915-Introduce-a-vma.kref.patch'
+        '0003-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
+        '0004-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
+        '0005-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
+        '0006-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
+        '0007-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
+        '0008-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
+        '0009-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
+        '0010-drm-i915-Introduce-a-vma.kref.patch'
         # Cleanjaro Patches
         '0001-futex-wait-multiple-5.3.patch'
         '0002-fix-zfs-build.patch'
@@ -43,11 +42,10 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            'adb69b04ac8d2d04e5ed51b29c3dd18a58603cd2c6ad69030cb5dc53220ffaa6'
+            '10c3bc2b09cd953b932112808aebb23de2f81d5ff0e867da9160ee109be58130'
             '8617028b2713624a2771099c326d965e714720ae03bbc8c1445a6502aac4fbd2'
             '7685d526bbdbfa795986591a70071c960ff572f56d3501774861728a9df8664c'
             'b8e016738f390ac7e0750da3c5147ecd20b89f7d58ba03649f3b8dbe983b5640'
-            '00297708583550422a325161822fbdd046b1d198b4fcf28e308ddbe0171e9696'
             '4246a2a84a578c253b79cb5f38889399015f3f7656c7de98f4a2573bc93d71ab'
             '2234d16705b8e9a5ae1b7e9071b76eb987c9011218fd9dcf98e087aea1aed65b'
             '3216310ead1b3e21379a12f22113345133d4276193415ab165bdf0c2c48e0037'
@@ -70,16 +68,14 @@ prepare() {
   patch -Np1 -i '../0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch'
   # More Arch Patches
   patch -Np1 -i '../0002-iwlwifi-pcie-restore-support-for-Killer-Qu-C0-NICs.patch'
-  patch -Np1 -i '../0003-iwlwifi-mvm-Do-not-require-PHY_SKU NVM-section-for-3168-devices.patch'
-
-  patch -Np1 -i '../0004-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
-  patch -Np1 -i '../0005-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
-  patch -Np1 -i '../0006-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
-  patch -Np1 -i '../0007-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
-  patch -Np1 -i '../0008-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
-  patch -Np1 -i '../0009-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
-  patch -Np1 -i '../0010-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
-  patch -Np1 -i '../0011-drm-i915-Introduce-a-vma.kref.patch'
+  patch -Np1 -i '../0003-drm-Remove-PageReserved-manipulation-from-drm_pci_alloc.patch'
+  patch -Np1 -i '../0004-drm-i915-Serialise-i915_active_acquire-with__active_retire.patch'
+  patch -Np1 -i '../0005-drm-i915-gem-Take-runtime-pm-wakeref-prior-to-unbinding.patch'
+  patch -Np1 -i '../0006-drm-i915-gem-Avoid-parking-the-vma-as-we-unbind.patch'
+  patch -Np1 -i '../0007-drm-i915-gem-Try-to-flush-pending-unbind-events.patch'
+  patch -Np1 -i '../0008-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
+  patch -Np1 -i '../0009-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
+  patch -Np1 -i '../0010-drm-i915-Introduce-a-vma.kref.patch'
 
   # Cleanjaro Patches
   patch -Np1 -i '../0001-futex-wait-multiple-5.3.patch'
