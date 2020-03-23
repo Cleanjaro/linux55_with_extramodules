@@ -8,7 +8,7 @@ pkgbase=linux55
 pkgname=('linux55' 'linux55-headers')
 _kernelname=-CLEANJARO
 _basekernel=5.5
-_sub=10
+_sub=11
 pkgver=${_basekernel}.${_sub}
 pkgrel=1
 arch=('x86_64')
@@ -30,6 +30,7 @@ source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar."
         '0008-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
         '0009-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
         '0010-drm-i915-Introduce-a-vma.kref.patch'
+        '0011-wlwifi-dont-send-GEO_TX_POWER_LIMIT-if-no-wgds-table.patch'
         # Cleanjaro Patches
         '0001-futex-wait-multiple-5.3.patch'
         '0002-fix-zfs-build.patch'
@@ -42,7 +43,7 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            '10c3bc2b09cd953b932112808aebb23de2f81d5ff0e867da9160ee109be58130'
+            '50e8f105cca4b523e2bbf7e2766de31ac8d6f2305e11314444d311853213586c'
             '8617028b2713624a2771099c326d965e714720ae03bbc8c1445a6502aac4fbd2'
             '7685d526bbdbfa795986591a70071c960ff572f56d3501774861728a9df8664c'
             'b8e016738f390ac7e0750da3c5147ecd20b89f7d58ba03649f3b8dbe983b5640'
@@ -54,6 +55,7 @@ sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             '57f98090492dcdad1ed8d83379d10416c3f9cf84bb0dd8a478f920a65fcbed0a'
             '4040a98a2cfbad14fda31d4341358d4e86ee1f76fcffb9f44950a05ca8092eb0'
             '7ed0a8aaadebf6c0694bb67bc36bbd715384d006778f7e4a05d2e1f40b117c1f'
+            'd154765afd46fe9c0973c1448d4226f6a43da82f582e54b59f0baa8d6f001b98'
             '4524a38401f997dbde577e76f2ec2ea77957a74edf3a6939013c8178cd65e476'
             'c6b9a5213762e6184c7a1405ccca08048d419d7e7795ecdd310414be886d72c5'
             '7a2758f86dd1339f0f1801de2dbea059b55bf3648e240878b11e6d6890d3089c')
@@ -76,6 +78,7 @@ prepare() {
   patch -Np1 -i '../0008-drm-i915-gem-Reinitialise-the-local-list-before-repeating.patch'
   patch -Np1 -i '../0009-drm-i915-Add-a-simple-is-bound-check-before-unbinding.patch'
   patch -Np1 -i '../0010-drm-i915-Introduce-a-vma.kref.patch'
+  patch -Np1 -i '../0011-wlwifi-dont-send-GEO_TX_POWER_LIMIT-if-no-wgds-table.patch'
 
   # Cleanjaro Patches
   patch -Np1 -i '../0001-futex-wait-multiple-5.3.patch'
