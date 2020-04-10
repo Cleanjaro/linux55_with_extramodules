@@ -8,7 +8,7 @@ pkgbase=linux55
 pkgname=('linux55' 'linux55-headers')
 _kernelname=-CLEANJARO
 _basekernel=5.5
-_sub=15
+_sub=16
 pkgver=${_basekernel}.${_sub}
 pkgrel=1
 arch=('x86_64')
@@ -18,7 +18,7 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'elfutils' 'git')
 options=('!strip')
 source=("https://www.kernel.org/pub/linux/kernel/v5.x/linux-${_basekernel}.tar."{xz,sign}
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
-        'config.x86_64'
+        'config'
         # ARCH Patches
         '0001-Add-sysctl-and-CONFIG-to-disallow-unprivileged-CLONE_NEWUSER.patch'
         '0002-iwlwifi-pcie-restore-support-for-Killer-Qu-C0-NICs.patch'
@@ -42,7 +42,7 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            '938b47e8e6c8e7ee091d0da149eab7cc63f3858bc7cc043ed4963771dc621b90'
+            '7c81bd691570248865609b2cfc103be6e8e561ac37ea8dbd3d3ae2faf6dbfd8e'
             '71362cdc9566a7d890d846193cb93bbddd409f8b958a82a2e066aa45414d1f3f'
             '7685d526bbdbfa795986591a70071c960ff572f56d3501774861728a9df8664c'
             'b8e016738f390ac7e0750da3c5147ecd20b89f7d58ba03649f3b8dbe983b5640'
@@ -86,7 +86,7 @@ prepare() {
   # https://forum.level1techs.com/t/145666/86
   patch -Np1 -i '../0001-nonupstream-navi10-vfio-reset.patch'
 
-   cat "${srcdir}/config.x86_64" > ./.config
+   cat "${srcdir}/config" > ./.config
 
   if [ "${_kernelname}" != "" ]; then
     sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"${_kernelname}\"|g" ./.config

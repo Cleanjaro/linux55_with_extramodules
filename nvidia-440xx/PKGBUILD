@@ -7,8 +7,8 @@ _linuxprefix=linux55
 _extramodules=extramodules-5.5-CLEANJARO
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
-pkgver=440.64
-pkgrel=10
+pkgver=440.82
+pkgrel=3
 pkgdesc="NVIDIA drivers for linux (Long lived)."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -22,7 +22,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('b0567234f6eaa841bb9f5cf965d1e93b9c7b4c87d6e5bdc3d7add924e9a55a7d')
+sha256sums=('89feda0c3e54c9c0d0528760bbb5cf4d8e57408fb3df2728653f3a1b73c110a9')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 

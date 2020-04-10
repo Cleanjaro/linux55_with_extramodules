@@ -10,8 +10,8 @@ _extramodules=extramodules-5.5-CLEANJARO
 pkgname=$_linuxprefix-rtl8723bu
 _pkgname=rtl8723bu
 _libname=8723bu
-pkgver=20200127
-pkgrel=8
+pkgver=20200410
+pkgrel=3
 pkgdesc="A kernel module for Realtek 8723bu network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -21,9 +21,9 @@ makedepends=("$_linuxprefix-headers")
 builddepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
-source=("${_pkgname}-${pkgver}::https://github.com/lwfinger/rtl8723bu/archive/master.zip"
+source=("${_pkgname}-${pkgver}.zip::https://github.com/lwfinger/rtl8723bu/archive/master.zip"
        	'blacklist-rtl8xxxu.conf')
-sha256sums=('24d93606211437f8699ecfcf5a339b0c118c5e0466836df86a8970fa333ba934'
+sha256sums=('c1db678a706c09d1b0bce6e48d542ba6b9f81a82f08d0398195552cdb679deb7'
             '7c726ad04083c8e620bc11c837e5f51d3e9e2a5c3e19c333b2968eb39f1ef07e')
 install=rtl8723bu.install
 

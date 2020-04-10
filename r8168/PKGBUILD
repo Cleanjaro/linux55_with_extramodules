@@ -9,8 +9,8 @@ _linuxprefix=linux55
 _extramodules=extramodules-5.5-CLEANJARO
 pkgname=$_linuxprefix-r8168
 _pkgname=r8168
-pkgver=8.048.00
-pkgrel=14
+pkgver=8.048.02
+pkgrel=3
 pkgdesc="A kernel module for Realtek 8168 network cards"
 url="http://www.realtek.com.tw"
 license=("GPL")
@@ -20,7 +20,7 @@ makedepends=("$_linuxprefix-headers")
 provides=("$_pkgname=$pkgver")
 groups=("$_linuxprefix-extramodules")
 source=("https://github.com/mtorromeo/r8168/archive/$pkgver/$_pkgname-$pkgver.tar.gz")
-sha256sums=('0aacba20d985ba5e67e21bdad89a099e102f7bef3027adb647ffbb80b01ac8d0')
+sha256sums=('0f209762fa37b90c6ba347a815fd083c9d342e38dbec14273059a419e671df70')
 
 install=$_pkgname.install
 
